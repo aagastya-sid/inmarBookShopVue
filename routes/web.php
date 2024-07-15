@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,14 @@ Route::get('/dashboard', function () {
 Route::resource('books', BookController::class)
     ->middleware('auth')
     ->only(['index']);
+
+Route::resource('cart', CartController::class)
+    ->middleware('auth')
+    ->only(['index', 'store']);
+
+Route::delete('/cart/{cart}', [CartController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('cart.destroy');
 
 
 

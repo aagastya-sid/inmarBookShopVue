@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Book;
+use App\Policies\BookPolicy;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

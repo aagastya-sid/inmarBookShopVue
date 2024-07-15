@@ -1,10 +1,43 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import {Head, router} from '@inertiajs/vue3';
 
 defineProps({
     books: Array
 })
+
+const addToCart = (book) => {
+    console.log(book);
+
+    router.post(route('cart.store'), {
+        book_id: book.id
+    },
+    {
+        preserveScroll: true,
+        onSuccess: () => {
+            console.log('Book added to cart');
+        },
+        onError: () => {
+            console.log('Error adding book to cart');
+        }
+    });
+
+}
+
+const removeFromCart = (book) => {
+    console.log(book);
+
+    router.delete(route('cart.destroy', {cart: book.cart_id}),
+    {
+        preserveScroll: true,
+        onSuccess: () => {
+            console.log('Book removed from cart');
+        },
+        onError: () => {
+            console.log('Error removing book from cart');
+        }
+    });
+}
 
 </script>
 
@@ -30,16 +63,21 @@ defineProps({
                                             <img :src="book.image" :alt="book.imageAlt" class="h-full w-full object-cover object-center" />
                                         </div>
                                         <div class="relative mt-4">
-                                            <h3 class="text-sm font-medium text-gray-900">{{ book.title }}</h3>
+                                            <h3 class="text-sm font-medium text-gray-900">{{ book.title.substring(0, 20) }}...</h3>
                                         </div>
                                         <div class="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-lg p-4">
                                             <div aria-hidden="true" class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50" />
-                                            <p class="relative text-lg font-semibold text-white">{{ book.price }}</p>
+                                            <p class="relative text-lg font-semibold text-white">{{ book.priceString }}</p>
                                         </div>
                                     </div>
                                     <div class="mt-6">
-                                        <a :href="book.href" class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
-                                        >Add to bag<span class="sr-only">, {{ book.name }}</span></a
+                                        <button @click="book.cart_id ? removeFromCart(book) : addToCart(book)"
+                                                class="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900"
+                                                :class="book.cart_id ? 'bg-red-500 hover:bg-red-200' : 'bg-green-500 hover:bg-green-200'"
+                                            >
+                                            {{ book.cart_id ? 'Remove from cart' : 'Add to cart' }}
+                                            <span class="sr-only">, {{ book.title }}</span>
+                                        </button
                                         >
                                     </div>
                                 </div>

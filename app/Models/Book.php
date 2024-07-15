@@ -20,4 +20,14 @@ class Book extends Model
     {
         return 'https://placehold.co/400x400?text=' . Str::limit($this->title, 10, '...');
     }
+
+    public function getCartIdAttribute()
+    {
+        return $this->carts->where('user_id', auth()->id())->first()->id ?? null;
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

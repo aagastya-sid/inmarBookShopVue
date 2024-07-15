@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use function Pest\Laravel\get;
 
 class BookController extends Controller
 {
@@ -17,7 +18,9 @@ class BookController extends Controller
                 'title' => $book->title,
                 'author' => $book->author,
                 'price' => $book->price,
+                'priceString' => getPriceString($book->price),
                 'image' => $book->image,
+                'cart_id' => $book->cart_id,
             ];
         });
 
