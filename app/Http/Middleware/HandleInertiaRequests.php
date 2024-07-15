@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Book;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -32,16 +33,23 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $permissions = [];
+        if (auth()->check()) {
+            $permissions = [
+                'canViewBooks' => auth()->user()->type === 'customer',
+                'canManageBooks' => auth()->user()->type === 'admin',
+                'canViewCart' => auth()->user()->type === 'customer',
+                'canManageCart' => auth()->user()->type === 'admin',
+                'canViewOrders' => auth()->user()->type === 'customer',
+                'canManageOrders' => auth()->user()->type === 'admin',
+            ];
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
-                'permissions' => [
-                    'canViewBooks' => Gate::allows('view', [User::class, Book::class]),
-                    'canCreateBooks' => Gate::allows('create', Book::class),
-                    'canUpdateBooks' => Gate::allows('update', [ User::class, Book::class]),
-                    'canDeleteBooks' => Gate::allows('delete', [ User::class, Book::class]),
-                ],
+                'permissions' => $permissions,
             ],
         ];
     }

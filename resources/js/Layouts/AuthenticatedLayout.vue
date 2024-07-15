@@ -27,24 +27,33 @@ const showingNavigationDropdown = ref(false);
                                 </Link>
                             </div>
 
+
+
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-<!--                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-<!--                                    Dashboard-->
-<!--                                </NavLink>-->
-                                <NavLink :href="route('books.index')" :active="route().current('books.index')">
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.canViewBooks"
+                                    :href="route('books.index')" :active="route().current('books.index')">
                                     Books
                                 </NavLink>
-                                <NavLink :href="route('cart.index')" :active="route().current('cart.index')">
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.canViewCart"
+                                    :href="route('cart.index')" :active="route().current('cart.index')">
                                     Cart
                                 </NavLink>
-                                <NavLink :href="route('orders.index')" :active="route().current('orders.index')">
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.canViewOrders"
+                                    :href="route('orders.index')" :active="route().current('orders.index')">
                                     Orders
                                 </NavLink>
-                                <NavLink :href="route('admin.books.index')" :active="route().current('admin.books.index')">
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.canManageBooks"
+                                    :href="route('admin.books.index')" :active="route().current('admin.books.index')">
                                     Admin Books
                                 </NavLink>
-                                <NavLink :href="route('admin.orders.index')" :active="route().current('admin.orders.index')">
+                                <NavLink
+                                    v-if="$page.props.auth.permissions.canManageOrders"
+                                    :href="route('admin.orders.index')" :active="route().current('admin.orders.index')">
                                     Admin Orders
                                 </NavLink>
                             </div>
@@ -127,22 +136,29 @@ const showingNavigationDropdown = ref(false);
                     class="sm:hidden"
                 >
                     <div class="pt-2 pb-3 space-y-1">
-<!--                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">-->
-<!--                            Dashboard-->
-<!--                        </ResponsiveNavLink>-->
-                        <ResponsiveNavLink :href="route('books.index')" :active="route().current('books.index')">
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.permissions.canViewBooks"
+                            :href="route('books.index')" :active="route().current('books.index')">
                             Books
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('cart.index')" :active="route().current('cart.index')">
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.permissions.canViewCart"
+                            :href="route('cart.index')" :active="route().current('cart.index')">
                             Cart
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('orders.index')" :active="route().current('orders.index')">
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.permissions.canViewOrders"
+                            :href="route('orders.index')" :active="route().current('orders.index')">
                             Orders
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('admin.books.index')" :active="route().current('admin.books.index')">
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.permissions.canManageBooks"
+                            :href="route('admin.books.index')" :active="route().current('admin.books.index')">
                             Admin Books
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink :href="route('admin.orders.index')" :active="route().current('admin.orders.index')">
+                        <ResponsiveNavLink
+                            v-if="$page.props.auth.permissions.canManageOrders"
+                            :href="route('admin.orders.index')" :active="route().current('admin.orders.index')">
                             Admin Orders
                         </ResponsiveNavLink>
                     </div>
