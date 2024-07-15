@@ -46,4 +46,7 @@ Email:      admin@example.com
 Password:   password
 ```
 
+### Project Schema for Database
+![Alt text](/inmarTestDB.png "Optional Title")
+
 
