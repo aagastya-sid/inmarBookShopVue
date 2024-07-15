@@ -24,6 +24,12 @@ class BookController extends Controller
             ];
         });
 
+        if (auth()->user()->type === 'admin') {
+            return inertia('Admin/Books/Index', [
+                'books' => $books,
+            ]);
+        }
+
         return inertia('Books/Index', [
             'books' => $books,
         ]);
@@ -32,10 +38,18 @@ class BookController extends Controller
 
     public function create()
     {
+        return inertia('Admin/Books/Form');
     }
 
     public function store(Request $request)
     {
+        Book::create([
+            'title' => $request->book_title,
+            'author' => $request->book_author,
+            'price' => $request->book_price,
+        ]);
+
+        return back()->with('message', 'Book created successfully');
     }
 
     public function show(Book $book)
@@ -44,10 +58,26 @@ class BookController extends Controller
 
     public function edit(Book $book)
     {
+        return inertia('Admin/Books/Form',
+            [
+                'book' => $book,
+            ]);
     }
 
     public function update(Request $request, Book $book)
     {
+        $book->update([
+            'title' => $request->book_title,
+            'author' => $request->book_author,
+            'price' => $request->book_price,
+        ]);
+
+        $message = 'Book updated successfully';
+        if (!$book->wasChanged()) {
+            $message = 'No changes made';
+        }
+
+        return back()->with('message', $message);
     }
 
     public function destroy(Book $book)

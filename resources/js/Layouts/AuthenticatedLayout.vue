@@ -38,6 +38,15 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('cart.index')" :active="route().current('cart.index')">
                                     Cart
                                 </NavLink>
+                                <NavLink :href="route('orders.index')" :active="route().current('orders.index')">
+                                    Orders
+                                </NavLink>
+                                <NavLink :href="route('admin.books.index')" :active="route().current('admin.books.index')">
+                                    Admin Books
+                                </NavLink>
+                                <NavLink :href="route('admin.orders.index')" :active="route().current('admin.orders.index')">
+                                    Admin Orders
+                                </NavLink>
                             </div>
                         </div>
 
@@ -126,6 +135,15 @@ const showingNavigationDropdown = ref(false);
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('cart.index')" :active="route().current('cart.index')">
                             Cart
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('orders.index')" :active="route().current('orders.index')">
+                            Orders
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('admin.books.index')" :active="route().current('admin.books.index')">
+                            Admin Books
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('admin.orders.index')" :active="route().current('admin.orders.index')">
+                            Admin Orders
                         </ResponsiveNavLink>
                     </div>
 
