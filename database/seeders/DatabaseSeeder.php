@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
             'type' => 'admin'
         ]);
 
-//        Book::factory(10)->create();
+        Book::factory(10)->create();
     }
 }
